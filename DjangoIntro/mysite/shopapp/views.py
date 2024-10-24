@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.models import Group
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -14,3 +15,9 @@ def index(request: HttpRequest) -> HttpResponse:
 
     return render(request=request, template_name="shopapp/shop-index.html",
                   context=context)
+
+
+def get_groups(request: HttpRequest) -> HttpResponse:
+    context = {"groups": Group.objects.prefetch_related("permissions").all()}
+
+    return render(request=request, template_name="shopapp/group.html", context=context)
