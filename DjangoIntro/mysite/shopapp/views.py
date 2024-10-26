@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import Group
+from shopapp.models import Product, Order
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -21,3 +22,16 @@ def get_groups(request: HttpRequest) -> HttpResponse:
     context = {"groups": Group.objects.prefetch_related("permissions").all()}
 
     return render(request=request, template_name="shopapp/group.html", context=context)
+
+
+def get_products(request: HttpRequest) -> HttpResponse:
+    context = {"products": Product.objects.all()}
+    return render(request=request, template_name="shopapp/products.html", context=context)
+
+
+def get_orders(request: HttpRequest) -> HttpResponse:
+    context = {"orders": (Order.objects.select_related("user").
+                          prefetch_related("product").all())}
+    return render(request=request,
+                  template_name="shopapp/orders.html",
+                  context=context)
