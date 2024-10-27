@@ -1,0 +1,39 @@
+{% extends "shopapp/base.html" %}
+
+{% block title %}
+    <div>
+        <h>Orders.</h>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div>User's orders:</div>
+    <div>
+        <ul>
+            {% if orders %}
+                {% for order in orders %}
+                    <div>
+                        Order: {{ order.name }}
+                        <p>Order comment: {{ order.user_comment }}</p>
+                        <p>Created: {{ order.created_at }}</p>
+                        <p>Address: {{ order.address }}</p>
+                        <h4>Products:</h4>
+                        <ul>
+                            {% for prod in order.product.all %}
+                                <p> Product: {{ prod.name }}</p>
+                                <p> Price: {{ prod.price }}</p>
+                                <p> Description: {{ prod.description }}</p>
+                                <p> Reviews: {{ prod.reviews }}</p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                {% endfor %}
+            {% else %}
+                <div>Orders is empty.</div>
+
+            {% endif %}
+        </ul>
+
+    </div>
+{% endblock %}

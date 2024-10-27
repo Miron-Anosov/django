@@ -9,25 +9,23 @@ python -m django startproject <name_project>
 python manage.py runserver
 ```
 
-
-проверить версию
+Проверить версию
 ```shell
 python -m django --version
 ```
-после чего создаем базовые миграции при первом запуске в корне проекта <name_project>
+После чего создаем базовые миграции при первом запуске в корне проекта <name_project>
 ```shell
-python manage.py makemigrations
-`python manage.py migration` 
+python manage.py migration
 ```
 
-дальше создаем супер пользователя
+Дальше создаем супер пользователя
 ```shell
 `python manage.py createsuperuser`
 ```
 
 Теперь можно зайти в админку от суперпользователя с паролем, который был создан в БД
 
-можно вызвать помошника
+Вызвать помошника:
 ```shell
 python manage.py help
 ```
@@ -37,3 +35,32 @@ python manage.py help
 python manage.py startapp <name_app>
 ```
 переходим в папку <name_project>.settings.py и вставить путь в INSTALLED_APPS
+
+После создания новой модели обновляем миграцию при помощи
+```shell
+python manage.py makemigrations
+```
+
+Посмотреть обновление миграции можно так:
+```shell
+python manage.py showmigrations
+```
+
+Применяем новую миграцию для всех приложений:
+```shell
+python manage.py migrate
+```
+
+Применяем новую миграцию для конкретного приложения:
+```shell
+python manage.py migrate <app_name>
+```
+
+Что бы откатить миграцию используем:
+```shell
+python manage.py migrate <app_name> <нужную_версию_миграции>
+```
+Что бы НАкатить миграцию используем:
+```shell
+python manage.py migrate <app_name> <нужную_версию_миграции>
+```
