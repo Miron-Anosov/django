@@ -1,0 +1,29 @@
+{% extends "shopapp/base.html" %}
+
+{%block title%}
+    <title> {{Customers}} </title>
+{%endblock%}
+
+{%block body%}
+    <h1> {{name_block}}</h1>
+    <div>
+       <ul>
+            {% for i_person in customers_orm_obj reversed %}
+                <li>
+                    {{ forloop.counter }}
+
+                    {{ i_person.name|capfirst}} 
+
+                    {%if i_person.age|divisibleby:"31"%}
+                       <u>{{ i_person.age }}</u>
+                    {% else %}
+                        {{ i_person.age }}
+                    {%endif%}
+
+                    <b> {{ i_person.order|floatformat:2}} </b>
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+{%endblock%}
